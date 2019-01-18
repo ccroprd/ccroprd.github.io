@@ -1,1 +1,0 @@
-IDRViewer.config = {"pagecount":1,"title":"","author":"Cícero Prado Silva","fileName":"cvccro.pdf","bounds":[[909,1286]],"bookmarks":[],"thumbnailType":"jpg","pageType":"html","pageLabels":[]};
