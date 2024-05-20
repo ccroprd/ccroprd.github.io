@@ -56,41 +56,7 @@ body {
   color: #0c5392;
 }
 
-.hamburger-menu {
-  height: 4rem;
-  width: 3rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
 
-.bar {
-  width: 1.9rem;
-  height: 1.5px;
-  border-radius: 2px;
-  background-color: #eee;
-  transition: 0.5s;
-  position: relative;
-}
-
-.bar::before,
-.bar::after {
-  content: "";
-  position: absolute;
-  width: inherit;
-  height: inherit;
-  background-color: #eee;
-  transition: 0.5s;
-}
-
-.bar::before {
-  transform: translateY(-9px);
-}
-
-.bar::after {
-  transform: translateY(9px);
-}
 
 .main-container {
   overflow: hidden;
@@ -147,17 +113,6 @@ header {
   font-size: 1.5rem;
 }
 
-.btn {
-  margin-top: 1rem;
-  padding: 0.6rem 1.8rem;
-  background-color: #0c5392;
-  border: none;
-  border-radius: 25px;
-  color: #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-  text-decoration: none;
-}
 
 .container.active .bar {
   transform: rotate(360deg);
