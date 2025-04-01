@@ -11,7 +11,7 @@ html{
 }
 
 body{ 
-    background-color: #B100F0;
+    background-color: #202B52;
     height: 100%;
 }
 
@@ -32,7 +32,7 @@ a{
 }
 
 .degrade{
-    background: linear-gradient(to right, #9921C5, #613870);
+    background: linear-gradient(to right, #2f4183, #613870);
 }
 header{
     text-align: center;
