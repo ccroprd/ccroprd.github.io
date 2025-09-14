@@ -41,6 +41,10 @@ body {
   color: #fff;
 }
 
+a {
+  text-decoration: none;
+}
+
 .logo {
   font-size: 1.8rem;
   font-weight: 600;
@@ -285,5 +289,6 @@ ul li.active a {
   transform: perspective(1300px) rotateY(20deg) translateY(10px)
     translateZ(340px) scale(0.5);
 }
+
 
 
