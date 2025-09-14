@@ -103,7 +103,6 @@ header {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.712);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,7 +122,7 @@ header {
 }
 
 .titley {
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .description {
@@ -136,8 +135,8 @@ header {
 .descriptiony {
   margin: 10px 0;
   text-align: center;
-  width: 50%;
-  font-size: 1.5rem;
+  width: 20%;
+  font-size: 1rem;
 }
 
 .container.active .bar {
@@ -311,6 +310,7 @@ ul li.active a {
   transform: perspective(1300px) rotateY(20deg) translateY(10px)
     translateZ(340px) scale(0.5);
 }
+
 
 
 
