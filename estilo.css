@@ -96,7 +96,7 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: #fff;
+  color: #ffcd00;
 }
 
 .inner {
@@ -289,6 +289,7 @@ ul li.active a {
   transform: perspective(1300px) rotateY(20deg) translateY(10px)
     translateZ(340px) scale(0.5);
 }
+
 
 
 
