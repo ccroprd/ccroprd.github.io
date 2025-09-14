@@ -158,6 +158,10 @@ header {
   margin-left: 10px;
 }
 
+.link-sem-sublinhado {
+  tect-decoration: none;
+}
+
 ul {
   list-style: none;
 }
@@ -281,3 +285,4 @@ ul li.active a {
   transform: perspective(1300px) rotateY(20deg) translateY(10px)
     translateZ(340px) scale(0.5);
 }
+
