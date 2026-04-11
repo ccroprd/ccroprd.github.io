@@ -891,7 +891,7 @@ main {
       <path d="M19 9 L19 11 M19 27 L19 29 M9 19 L11 19 M27 19 L29 19" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
     <div>
-      <div class="nav-title">[teeeeeeeeste]Estética Profissional</div>
+      <div class="nav-title">[teste]Estética Profissional</div>
       <div class="nav-subtitle">Tabela de Produtos</div>
     </div>
   </a>
@@ -1610,10 +1610,10 @@ function sendWhatsApp() {
 // ---------------------------------------------------------------
 // Salva o pedido na planilha do Google Drive via Apps Script
 // ---------------------------------------------------------------
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytFqql6SeRjk07PJeMY2q7TBq2CmD9mkujYZNXiwHwJiRZy3xARnu2ecYtlqog8tFg/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxD19xhQh8nijCB8ofQJZ5txHgfMlnlfowjljGkq7AUx78qHCdGOHg6d8t_nWOrTQBizw/exec';
 
 function salvarPedidoNaPlanilha(orderNum, dataPedido, horaPedido, total) {
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('SUA_URL_AQUI')) {
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('https://script.google.com/macros/s/AKfycbxD19xhQh8nijCB8ofQJZ5txHgfMlnlfowjljGkq7AUx78qHCdGOHg6d8t_nWOrTQBizw/exec')) {
     console.warn('⚠️ Configure a URL do Apps Script no arquivo HTML para ativar o registro na planilha.');
     return;
   }
