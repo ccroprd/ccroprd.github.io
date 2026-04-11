@@ -1598,7 +1598,7 @@ function sendWhatsApp() {
   });
 
   msg += `\n💰 *TOTAL: R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}*\n`;
-  msg += '\nAguardo confirmação! 😊';
+  msg += '\nObrigado, daqui a pouco já te chamo para finalizar! 😊';
 
   const encoded = encodeURIComponent(msg);
   window.open('https://wa.me/5511937783240?text=' + encoded, '_blank', 'noopener,noreferrer');
@@ -1610,10 +1610,10 @@ function sendWhatsApp() {
 // ---------------------------------------------------------------
 // Salva o pedido na planilha do Google Drive via Apps Script
 // ---------------------------------------------------------------
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhPXhsyxQ-PK9p9H_qHXreDgRWCU8amocbCjmCRmY/dev';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytFqql6SeRjk07PJeMY2q7TBq2CmD9mkujYZNXiwHwJiRZy3xARnu2ecYtlqog8tFg/exec';
 
 function salvarPedidoNaPlanilha(orderNum, dataPedido, horaPedido, total) {
-  if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxhPXhsyxQ-PK9p9H_qHXreDgRWCU8amocbCjmCRmY/dev') {
+  if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbytFqql6SeRjk07PJeMY2q7TBq2CmD9mkujYZNXiwHwJiRZy3xARnu2ecYtlqog8tFg/exec') {
     console.warn('⚠️ Configure a URL do Apps Script no arquivo HTML para ativar o registro na planilha.');
     return;
   }
