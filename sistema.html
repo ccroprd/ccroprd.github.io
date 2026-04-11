@@ -891,7 +891,7 @@ main {
       <path d="M19 9 L19 11 M19 27 L19 29 M9 19 L11 19 M27 19 L29 19" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
     <div>
-      <div class="nav-title">[teste]Estética Profissional</div>
+      <div class="nav-title">[TESTE]Estética Profissional</div>
       <div class="nav-subtitle">Tabela de Produtos</div>
     </div>
   </a>
@@ -1581,29 +1581,34 @@ function sendWhatsApp() {
   const items = Object.values(cart);
   const total = items.reduce((s, v) => s + parseFloat(v.product.por) * v.qty, 0);
 
-  let msg = '🌸 *NOVO PEDIDO — Estética Profissional*\n\n';
-  msg += '👤 *Dados do Cliente*\n';
-  msg += `Nome: ${cd.nome}\n`;
-  msg += `Fone: ${cd.fone}\n`;
-  msg += `CPF: ${cd.cpf}\n`;
-  msg += `E-mail: ${cd.email}\n`;
-  msg += `Endereço: ${cd.rua}, ${cd.numero} — ${cd.bairro}\n`;
-  msg += `CEP: ${cd.cep} — ${cd.cidade}/${cd.estado}\n\n`;
+  // ✅ CORRIGIDO: pega os dados do pedido que já estão salvos na tela de revisão
+  const orderNum  = window._currentOrderNum || generateOrderNumber();
+  const now       = new Date();
+  const dataPedido = now.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', year:'numeric'});
+  const horaPedido = now.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
 
-  msg += '🛒 *Produtos Solicitados*\n';
+  let msg = `🛒 *NOVO PEDIDO — Estética Profissional*\n\n`;
+  msg += `📋 *Nº do Pedido:* ${orderNum}\n`;
+  msg += `📅 *Data:* ${dataPedido}  🕐 *Horário:* ${horaPedido}\n\n`;
+  msg += `👤 *Dados do Cliente*\n`;
+  msg += `• Nome: ${cd.nome}\n`;
+  msg += `• Fone: ${cd.fone}\n`;
+  msg += `• CPF: ${cd.cpf}\n`;
+  msg += `• E-mail: ${cd.email}\n`;
+  msg += `• Endereço: ${cd.rua}, ${cd.numero} — ${cd.bairro}\n`;
+  msg += `• CEP: ${cd.cep} — ${cd.cidade}/${cd.estado}\n\n`;
+  msg += `📦 *Produtos Solicitados*\n`;
   items.forEach(v => {
     const sub = parseFloat(v.product.por) * v.qty;
-    msg += `• ${v.product.nome}\n`;
-    msg += `  ${v.qty}x R$ ${parseFloat(v.product.por).toLocaleString('pt-BR',{minimumFractionDigits:2})} = R$ ${sub.toLocaleString('pt-BR',{minimumFractionDigits:2})}\n`;
+    msg += `• ${v.product.nome}\n  ${v.qty}x R$ ${parseFloat(v.product.por).toLocaleString('pt-BR',{minimumFractionDigits:2})} = R$ ${sub.toLocaleString('pt-BR',{minimumFractionDigits:2})}\n`;
   });
-
   msg += `\n💰 *TOTAL: R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}*\n`;
-  msg += '\nObrigado, daqui a pouco já te chamo para finalizar! 😊';
+  msg += `\nAguardando confirmação do pedido! 😊`;
 
   const encoded = encodeURIComponent(msg);
-  window.open('https://wa.me/5511937783240?text=' + encoded, '_blank', 'noopener,noreferrer');
+  window.open(`https://wa.me/5511937783240?text=${encoded}`, '_blank', 'noopener,noreferrer');
 
-  // Enviar pedido para Google Sheets (via Apps Script)
+  // ✅ Agora as variáveis existem corretamente aqui
   salvarPedidoNaPlanilha(orderNum, dataPedido, horaPedido, total);
 }
 
