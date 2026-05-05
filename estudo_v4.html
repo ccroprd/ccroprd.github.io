@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise PAC Platinum — Franca-SP · Dados Contratuais Reais</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
+
+:root {
+  --bg:#0e1117; --s1:#161b27; --s2:#1c2333; --border:#252d3d; --border2:#2e3a50;
+  --text:#e2e8f0; --muted:#6b7a99;
+  --pac:#22c55e; --pac-dim:rgba(34,197,94,0.10); --pac-bd:rgba(34,197,94,0.32);
+  --sdx:#818cf8; --sdx-dim:rgba(129,140,248,0.10); --sdx-bd:rgba(129,140,248,0.32);
+  --warn:#f59e0b; --warn-dim:rgba(245,158,11,0.10); --warn-bd:rgba(245,158,11,0.30);
+  --red:#f43f5e; --red-dim:rgba(244,63,94,0.10); --red-bd:rgba(244,63,94,0.30);
+  --alert:#ff6b35; --alert-dim:rgba(255,107,53,0.10); --alert-bd:rgba(255,107,53,0.32);
+  --l1:#22c55e; --l3:#f59e0b; --e1:#f43f5e;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.65;}
+.wrap{max-width:1060px;margin:0 auto;padding:52px 32px 88px;}
+
+/* HERO */
+.hero{padding:44px 0 38px;border-bottom:1px solid var(--border);margin-bottom:48px;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pac);border:1px solid var(--pac-bd);background:var(--pac-dim);padding:5px 12px;border-radius:4px;margin-bottom:20px;}
+.hero h1{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:12px;}
+.hero h1 em{color:var(--pac);font-style:normal;}
+.hero-sub{color:var(--muted);font-size:14px;max-width:660px;line-height:1.6;}
+.hero-meta{display:flex;gap:28px;margin-top:22px;flex-wrap:wrap;}
+.hmi .hl2{color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-size:10px;margin-bottom:3px;}
+.hmi .hv{color:var(--text);font-weight:500;font-size:13px;}
+
+/* CRITICAL ALERT */
+.alert-box{background:var(--alert-dim);border:1px solid var(--alert-bd);border-radius:12px;padding:22px 24px;margin:20px 0;}
+.alert-box .ah{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--alert);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.alert-box p{color:#fdb896;margin-bottom:6px;font-size:13.5px;}
+.alert-box p:last-child{margin-bottom:0;}
+.alert-box strong{color:#fff;}
+
+/* SECTIONS */
+.section{margin-bottom:60px;}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;}
+.sec-num{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pac);background:var(--pac-dim);border:1px solid var(--pac-bd);padding:3px 9px;border-radius:3px;}
+.sec-num.alert{color:var(--alert);background:var(--alert-dim);border-color:var(--alert-bd);}
+h2{font-family:'Syne',sans-serif;font-size:21px;font-weight:700;color:#fff;}
+.divider{height:1px;background:var(--border);margin-bottom:24px;}
+h3{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin:30px 0 12px;}
+
+/* NOTES */
+.note{border-left:3px solid var(--border2);background:var(--s1);padding:14px 18px;border-radius:0 6px 6px 0;margin:14px 0;font-size:13px;color:var(--muted);}
+.note strong{color:var(--text);font-weight:500;}
+.note.pac{border-color:var(--pac);background:var(--pac-dim);color:#86efac;}
+.note.pac strong{color:#fff;}
+.note.sdx{border-color:var(--sdx);background:var(--sdx-dim);color:#a5b4fc;}
+.note.sdx strong{color:#fff;}
+.note.warn{border-color:var(--warn);background:var(--warn-dim);color:#fcd34d;}
+.note.warn strong{color:#fff;}
+.note.red{border-color:var(--red);background:var(--red-dim);color:#fda4af;}
+.note.red strong{color:#fff;}
+.note.alert{border-color:var(--alert);background:var(--alert-dim);color:#fdb896;}
+.note.alert strong{color:#fff;}
+
+/* BADGES */
+.b{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:2px 7px;border-radius:3px;}
+.b-e1{background:rgba(244,63,94,.15);color:#f43f5e;}
+.b-l1{background:rgba(34,197,94,.15);color:#22c55e;}
+.b-l3{background:rgba(245,158,11,.15);color:#f59e0b;}
+.b-n1{background:rgba(129,140,248,.15);color:#818cf8;}
+.b-pac{background:rgba(34,197,94,.15);color:#22c55e;}
+.b-sdx{background:rgba(129,140,248,.15);color:#818cf8;}
+.b-na{background:rgba(244,63,94,.2);color:#fb7185;border:1px solid rgba(244,63,94,.4);}
+.b-ok{background:rgba(34,197,94,.2);color:#4ade80;border:1px solid rgba(34,197,94,.4);}
+.b-warn{background:rgba(245,158,11,.2);color:#fbbf24;border:1px solid rgba(245,158,11,.4);}
+
+/* TABLES */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;margin:10px 0 24px;background:var(--s1);}
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+thead tr{background:var(--s2);}
+thead th{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:11px 13px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+tbody td{padding:9px 13px;vertical-align:middle;}
+.city{font-weight:500;color:#fff;}
+.v-pac{color:var(--pac);font-weight:600;}
+.v-sdx{color:var(--sdx);font-weight:600;}
+.v-gyn{color:#fc8181;font-weight:600;}
+.v-econ{color:#4ade80;font-weight:700;}
+.v-econ-pct{font-size:11px;color:#86efac;}
+.v-mut{color:var(--muted);}
+.v-alert{color:var(--alert);font-weight:600;}
+.v-bad{color:#fc8181;font-weight:600;}
+.day-fast{color:var(--pac);font-weight:500;}
+.day-mid{color:var(--warn);font-weight:500;}
+.day-slow{color:var(--red);font-weight:500;}
+.hl{background:rgba(34,197,94,.04)!important;}
+.hl-warn{background:rgba(245,158,11,.04)!important;}
+.hl-red{background:rgba(244,63,94,.04)!important;}
+.hl-alert{background:rgba(255,107,53,.05)!important;}
+.sep-row td{background:var(--s2)!important;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);padding:7px 13px;}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:16px 0 28px;}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:18px 16px;}
+.kpi .kl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px;}
+.kpi .kv{font-family:'Syne',sans-serif;font-size:25px;font-weight:800;line-height:1;}
+.kpi .ks{font-size:11px;color:var(--muted);margin-top:5px;}
+.kpi.pac{border-color:var(--pac-bd);}.kpi.pac .kv{color:var(--pac);}
+.kpi.sdx{border-color:var(--sdx-bd);}.kpi.sdx .kv{color:var(--sdx);}
+.kpi.warn{border-color:var(--warn-bd);}.kpi.warn .kv{color:var(--warn);}
+.kpi.red{border-color:var(--red-bd);}.kpi.red .kv{color:var(--red);}
+.kpi.alert{border-color:var(--alert-bd);}.kpi.alert .kv{color:var(--alert);}
+
+/* CD COST */
+.cd-box{background:var(--s1);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:14px 0;}
+.cd-row{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--border);font-size:13px;}
+.cd-row:last-child{border-bottom:none;}
+.cd-row .item{color:var(--text);display:flex;align-items:center;gap:10px;}
+.cd-row .icon{font-size:18px;width:28px;text-align:center;}
+.cd-row .amount{font-weight:700;color:var(--warn);font-size:14px;}
+.cd-total{background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(34,197,94,.03));border:1px solid var(--pac-bd);border-radius:10px;padding:22px 24px;margin:16px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.cd-total .tl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--pac);font-weight:600;margin-bottom:4px;}
+.cd-total .tv{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--pac);}
+.cd-total .ts{font-size:12px;color:var(--muted);max-width:440px;line-height:1.55;}
+
+/* VOL CARDS */
+.vol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:16px 0;}
+.vc{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:22px 20px;}
+.vc .vh{font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--border);}
+.vc.low .vh{color:var(--muted);}
+.vc.mid .vh{color:var(--warn);}
+.vc.hi .vh{color:var(--pac);}
+.vr{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:8px;color:var(--muted);}
+.vr strong{color:var(--text);font-weight:500;}
+.vr .pos{color:var(--pac);font-weight:600;}
+.vr .neg{color:var(--red);font-weight:600;}
+.verdict{margin-top:14px;padding:11px 13px;border-radius:7px;font-size:12px;line-height:1.55;}
+.verdict.no{background:var(--red-dim);color:#fda4af;border:1px solid var(--red-bd);}
+.verdict.maybe{background:var(--warn-dim);color:#fcd34d;border:1px solid var(--warn-bd);}
+.verdict.yes{background:var(--pac-dim);color:#86efac;border:1px solid var(--pac-bd);}
+
+/* EXCLUSION CARDS */
+.excl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:11px;margin:14px 0 22px;}
+.excl-card{background:var(--s1);border:1px solid var(--alert-bd);border-radius:8px;padding:13px 15px;}
+.excl-card .cn{font-weight:600;color:#fff;font-size:13px;margin-bottom:4px;}
+.excl-card .cr{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:2px;}
+.excl-card .sv{color:var(--sdx);font-weight:500;}
+.excl-card .sub{font-size:10.5px;color:var(--muted);margin-top:6px;border-top:1px solid var(--border);padding-top:6px;}
+
+/* SUMMARY GRID */
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:16px 0 24px;}
+.sum-box{background:var(--s1);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.sum-box .sh{padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.sum-box.pac-b .sh{background:var(--pac-dim);color:var(--pac);border-color:var(--pac-bd);}
+.sum-box.gyn-b .sh{background:var(--red-dim);color:#fc8181;border-color:var(--red-bd);}
+.sum-row{display:flex;justify-content:space-between;padding:9px 16px;border-bottom:1px solid var(--border);font-size:12.5px;}
+.sum-row:last-child{border-bottom:none;}
+.sum-row .sl{color:var(--muted);}
+.sum-box.pac-b .sv2{color:var(--pac);font-weight:600;}
+.sum-box.gyn-b .sv2{color:#fc8181;font-weight:600;}
+
+/* BAND */
+.band{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin:22px 0 8px;}
+.band-pac{background:var(--pac-dim);color:var(--pac);border:1px solid var(--pac-bd);}
+.band-alert{background:var(--alert-dim);color:var(--alert);border:1px solid var(--alert-bd);}
+.band-sdx{background:var(--sdx-dim);color:var(--sdx);border:1px solid var(--sdx-bd);}
+.band-warn{background:var(--warn-dim);color:var(--warn);border:1px solid var(--warn-bd);}
+
+/* PESO TAG */
+.peso-cub{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:3px;background:rgba(244,63,94,.2);color:#fb7185;}
+
+p{color:var(--muted);margin-bottom:12px;font-size:13px;}
+p strong{color:var(--text);font-weight:500;}
+ul,ol{padding-left:18px;margin-bottom:12px;color:var(--muted);}
+li{margin-bottom:6px;}
+li strong{color:var(--text);font-weight:500;}
+
+.footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+
+@media(max-width:640px){.sum-grid{grid-template-columns:1fr;}.hero h1{font-size:27px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-tag">📦 Análise PAC · Dados Contratuais Reais · 2026</div>
+  <h1>Frete <em>PAC Platinum</em> — Franca-SP<br>Comparativo Completo + CD Estratégico</h1>
+  <p class="hero-sub">Estudo focado no PAC — modal do frete grátis acima de R$500. Dados 100% reais da tabela contratual Correios. Comparativo com Goiânia, mapeamento de exclusões e viabilidade do CD em Franca-SP.</p>
+  <div class="hero-meta">
+    <div class="hmi"><div class="hl2">Contrato base</div><div class="hv">PAC Platinum · Origem Franca-SP</div></div>
+    <div class="hmi"><div class="hl2">Caixa / peso cúbico</div><div class="hv">30×20×12 cm → 1.200 g (faixa 1–2 kg)</div></div>
+    <div class="hmi"><div class="hl2">SP cobertura PAC</div><div class="hv">530 cidades · Nível E1</div></div>
+    <div class="hmi"><div class="hl2">Foco do negócio</div><div class="hv">Frete grátis em compras acima de R$500</div></div>
+    <div class="hmi"><div class="hl2">Versão</div><div class="hv">2.0 · Dados reais</div></div>
+  </div>
+</div>
+
+
+<!-- ═══ SEÇÃO 0 · DESCOBERTA CRÍTICA ═══ -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-num alert">⚡ Achado Crítico</span>
+    <h2>O Contrato PAC Platinum tem Cobertura Diferente do SEDEX</h2>
+  </div>
+  <div class="divider"></div>
+
+  <div class="alert-box">
+    <div class="ah">⚠️ Descoberta importante nos dados reais do contrato PAC</div>
+    <p><strong>O contrato PAC Franca-SP cobre apenas 530 cidades SP — todas classificadas como nível E1.</strong></p>
+    <p>O SEDEX Franca-SP tem 3 níveis: L1 (79 cidades), L3 (37 cidades) e E1 (530 cidades). <strong>As 116 cidades L1 e L3 do SEDEX — incluindo São Paulo Capital, Campinas, Guarulhos, Santo André, Santos, Jundiaí, Ribeirão Preto e demais grandes centros — NÃO estão no contrato PAC.</strong></p>
+    <p>Isso significa que para essas 116 cidades, enviar PAC pelo contrato atual <strong>usa a tarifa E1 (R$19,38 na faixa 1–2 kg)</strong> — não a tarifa favorecida L1/L3. <strong>O SEDEX para essas mesmas cidades sai por R$14,98 (L1) — ou seja, o SEDEX contratual é R$4,40 mais barato que o PAC E1 para SP Capital!</strong></p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi pac">
+      <div class="kl">PAC E1 · 1–2 kg ★</div>
+      <div class="kv">R$19,38</div>
+      <div class="ks">Único nível SP no contrato PAC · 530 cidades</div>
+    </div>
+    <div class="kpi sdx">
+      <div class="kl">SEDEX L1 · 1–2 kg ★</div>
+      <div class="kv">R$14,98</div>
+      <div class="ks">SP Capital, Campinas, Grande SP · 79 cidades</div>
+    </div>
+    <div class="kpi alert">
+      <div class="kl">PAC custa mais que SEDEX L1</div>
+      <div class="kv">+R$4,40</div>
+      <div class="ks">Para cidades L1: SEDEX é mais barato que PAC!</div>
+    </div>
+    <div class="kpi warn">
+      <div class="kl">Cidades SP sem PAC contratual</div>
+      <div class="kv">116</div>
+      <div class="ks">L1 (79) + L3 (37) · Só cobertas pelo SEDEX Platinum</div>
+    </div>
+    <div class="kpi red">
+      <div class="kl">Cidades SP no PAC E1</div>
+      <div class="kv">530</div>
+      <div class="ks">Interior SP · Valor único R$19,38 (1–2 kg)</div>
+    </div>
+    <div class="kpi">
+      <div class="kl">Peso cobrado (caixa atual)</div>
+      <div class="kv">1.200 g</div>
+      <div class="ks">Peso cúbico · Faixa 1.001–2.000 g em todos os modais</div>
+    </div>
+  </div>
+
+  <h3>Estrutura completa de níveis — PAC vs SEDEX em SP</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nível</th>
+          <th>Modal</th>
+          <th>Cidades SP</th>
+          <th>Exemplos</th>
+          <th>0–300g</th>
+          <th>301–500g</th>
+          <th>501–1.000g</th>
+          <th>1.001–2.000g ★</th>
+          <th>Kg adicional</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hl">
+          <td><span class="b b-l1">L1</span></td>
+          <td><span class="b b-sdx">SEDEX</span> <span style="color:var(--red);font-size:11px;">⚠ sem PAC</span></td>
+          <td>79</td>
+          <td class="v-mut">SP Capital, Campinas, Guarulhos, SJC, Santos, Sorocaba, Jundiaí, Osasco, Barueri, Santo André…</td>
+          <td class="v-sdx">R$9,94</td><td class="v-sdx">R$11,15</td><td class="v-sdx">R$11,94</td>
+          <td class="v-sdx"><strong>R$14,98</strong></td>
+          <td class="v-mut">R$3,04</td>
+        </tr>
+        <tr class="hl-warn">
+          <td><span class="b b-l3">L3</span></td>
+          <td><span class="b b-sdx">SEDEX</span> <span style="color:var(--red);font-size:11px;">⚠ sem PAC</span></td>
+          <td>37</td>
+          <td class="v-mut">Ribeirão Preto, Sertãozinho, Jaboticabal, Batatais, Orlândia, Guariba, Serrana…</td>
+          <td class="v-sdx">R$10,36</td><td class="v-sdx">R$11,63</td><td class="v-sdx">R$12,45</td>
+          <td class="v-sdx"><strong>R$15,64</strong></td>
+          <td class="v-mut">R$3,19</td>
+        </tr>
+        <tr class="hl-alert">
+          <td><span class="b b-e1">E1</span></td>
+          <td><span class="b b-pac">PAC ✓</span> + <span class="b b-sdx">SEDEX ✓</span></td>
+          <td>530</td>
+          <td class="v-mut">Bauru, São Carlos, Araraquara, São J. Rio Preto, P. Prudente, Botucatu, Marília, Taubaté, Caraguatatuba…</td>
+          <td class="v-pac">R$15,45</td><td class="v-pac">R$17,17</td><td class="v-pac">R$18,39</td>
+          <td class="v-pac"><strong>R$19,38</strong></td>
+          <td class="v-mut">R$4,04</td>
+        </tr>
+        <tr>
+          <td><span class="b b-e1">E1</span></td>
+          <td><span class="b b-sdx">SEDEX</span></td>
+          <td>530</td>
+          <td class="v-mut">(mesmas 530 cidades acima)</td>
+          <td class="v-sdx">R$19,00</td><td class="v-sdx">R$19,69</td><td class="v-sdx">R$21,96</td>
+          <td class="v-sdx"><strong>R$24,22</strong></td>
+          <td class="v-mut">R$5,48</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note alert">
+    <strong>🔑 Conclusão-chave da estrutura:</strong> Para as 530 cidades E1 de SP, o PAC (R$19,38) é R$4,84 mais barato que o SEDEX (R$24,22) — faz sentido usar PAC como frete grátis aqui. Mas para as 116 cidades L1+L3 (os maiores centros de consumo do estado), o PAC E1 (R$19,38) é <strong>R$4,40 mais caro</strong> que o SEDEX L1 (R$14,98). Nestas cidades, <strong>oferecer SEDEX como "frete grátis" é mais barato que PAC.</strong>
+  </div>
+</div>
+
+
+<!-- ═══ SEÇÃO 1 · PAC × PAC ═══ -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>PAC × PAC — Franca-SP vs. Goiânia-GO · Dados Reais</h2>
+  </div>
+  <div class="divider"></div>
+
+  <p>Comparativo direto entre PAC de Franca (contrato real) e PAC de Goiânia (balcão 2026), para <strong>todas as faixas de peso</strong> e destinos SP. Peso cobrado: <strong>1.200 g cúbico</strong> (caixa 30×20×12 cm) → faixa 1.001–2.000 g em ambas origens.</p>
+
+  <div class="band band-alert">⚠ Nível E1 — 530 cidades SP · Única cobertura PAC Franca</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Destino SP</th>
+          <th>Faixa</th>
+          <th>PAC GYN Balcão</th>
+          <th>PAC Franca Contrato</th>
+          <th>Diferença</th>
+          <th>Prazo GYN</th>
+          <th>Prazo Franca</th>
+          <th>Ganho Prazo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- São José do Rio Preto -->
+        <tr class="hl">
+          <td class="city" rowspan="4">São José do Rio Preto</td>
+          <td class="v-mut">0–300 g</td><td class="v-gyn">R$15,60</td><td class="v-pac">R$15,45</td>
+          <td><span class="v-econ">R$0,15</span> <span class="v-econ-pct">1,0%</span></td>
+          <td class="day-slow" rowspan="4">5–7 dias</td><td class="day-mid" rowspan="4">3–4 dias</td><td class="day-fast" rowspan="4">−2 a −3 dias</td>
+        </tr>
+        <tr class="hl"><td class="v-mut">301–500 g</td><td class="v-gyn">R$16,60</td><td class="v-pac">R$17,17</td><td><span class="v-bad">+R$0,57</span> <span style="font-size:11px;color:#fda4af">GYN melhor</span></td></tr>
+        <tr class="hl"><td class="v-mut">501–1.000 g</td><td class="v-gyn">R$18,00</td><td class="v-pac">R$18,39</td><td><span class="v-bad">+R$0,39</span> <span style="font-size:11px;color:#fda4af">GYN melhor</span></td></tr>
+        <tr class="hl"><td class="v-mut"><strong>1.001–2.000 g ★</strong></td><td class="v-gyn">R$20,90</td><td class="v-pac"><strong>R$19,38</strong></td><td><span class="v-econ">R$1,52</span> <span class="v-econ-pct">7,3%</span></td></tr>
+        <!-- Bauru -->
+        <tr>
+          <td class="city" rowspan="4">Bauru</td>
+          <td class="v-mut">0–300 g</td><td class="v-gyn">R$15,60</td><td class="v-pac">R$15,45</td>
+          <td><span class="v-econ">R$0,15</span> <span class="v-econ-pct">1,0%</span></td>
+          <td class="day-slow" rowspan="4">5–7 dias</td><td class="day-mid" rowspan="4">3–5 dias</td><td class="day-fast" rowspan="4">−2 dias</td>
+        </tr>
+        <tr><td class="v-mut">301–500 g</td><td class="v-gyn">R$16,60</td><td class="v-pac">R$17,17</td><td><span class="v-bad">+R$0,57</span></td></tr>
+        <tr><td class="v-mut">501–1.000 g</td><td class="v-gyn">R$18,00</td><td class="v-pac">R$18,39</td><td><span class="v-bad">+R$0,39</span></td></tr>
+        <tr><td class="v-mut"><strong>1.001–2.000 g ★</strong></td><td class="v-gyn">R$20,90</td><td class="v-pac"><strong>R$19,38</strong></td><td><span class="v-econ">R$1,52</span> <span class="v-econ-pct">7,3%</span></td></tr>
+        <!-- Presidente Prudente -->
+        <tr class="hl">
+          <td class="city" rowspan="2">Presidente Prudente · Araçatuba · Marília · Assis</td>
+          <td class="v-mut">301–500 g</td><td class="v-gyn">R$16,60</td><td class="v-pac">R$17,17</td>
+          <td><span class="v-bad">+R$0,57</span></td>
+          <td class="day-slow" rowspan="2">6–8 dias</td><td class="day-mid" rowspan="2">3–5 dias</td><td class="day-fast" rowspan="2">−3 dias</td>
+        </tr>
+        <tr class="hl"><td class="v-mut"><strong>1.001–2.000 g ★</strong></td><td class="v-gyn">R$20,90</td><td class="v-pac"><strong>R$19,38</strong></td><td><span class="v-econ">R$1,52</span> <span class="v-econ-pct">7,3%</span></td></tr>
+        <!-- São Carlos / Araraquara -->
+        <tr>
+          <td class="city" rowspan="2">São Carlos · Araraquara · Botucatu · Ourinhos</td>
+          <td class="v-mut">301–500 g</td><td class="v-gyn">R$16,60</td><td class="v-pac">R$17,17</td>
+          <td><span class="v-bad">+R$0,57</span></td>
+          <td class="day-slow" rowspan="2">5–7 dias</td><td class="day-mid" rowspan="2">3–4 dias</td><td class="day-fast" rowspan="2">−2 a −3 dias</td>
+        </tr>
+        <tr><td class="v-mut"><strong>1.001–2.000 g ★</strong></td><td class="v-gyn">R$20,90</td><td class="v-pac"><strong>R$19,38</strong></td><td><span class="v-econ">R$1,52</span> <span class="v-econ-pct">7,3%</span></td></tr>
+        <!-- Taubate / Caraguatatuba -->
+        <tr class="hl">
+          <td class="city" rowspan="2">Taubaté · Caraguatatuba · São Sebastião · Litoral</td>
+          <td class="v-mut">301–500 g</td><td class="v-gyn">R$16,60</td><td class="v-pac">R$17,17</td>
+          <td><span class="v-bad">+R$0,57</span></td>
+          <td class="day-slow" rowspan="2">5–8 dias</td><td class="day-mid" rowspan="2">2–4 dias</td><td class="day-fast" rowspan="2">−3 a −4 dias</td>
+        </tr>
+        <tr class="hl"><td class="v-mut"><strong>1.001–2.000 g ★</strong></td><td class="v-gyn">R$20,90</td><td class="v-pac"><strong>R$19,38</strong></td><td><span class="v-econ">R$1,52</span> <span class="v-econ-pct">7,3%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <strong>Atenção nas faixas menores:</strong> Nas faixas 301–500 g e 501–1.000 g, o PAC de Franca (R$17,17 e R$18,39) fica R$0,39–R$0,57 <em>mais caro</em> que o balcão de Goiânia (R$16,60 e R$18,00). Porém, na faixa crítica de <strong>1.001–2.000 g (peso cúbico da caixa atual = 1.200 g)</strong>, Franca é <strong>R$1,52 mais barato (7,3%)</strong> + 2–3 dias mais rápido. O ganho de prazo é o principal diferencial do E1.
+  </div>
+
+  <div class="band band-pac">⭐ Cidades L1+L3: PAC não existe no contrato — SEDEX é o único modal favorecido</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Cidade (L1/L3 SEDEX)</th>
+          <th>Nível SEDEX</th>
+          <th>PAC disponível?</th>
+          <th>SEDEX Franca 1–2kg</th>
+          <th>PAC E1 Franca 1–2kg</th>
+          <th>Diferença SEDEX vs PAC E1</th>
+          <th>Recomendação de modal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hl">
+          <td class="city">São Paulo (Capital)</td><td><span class="b b-l1">L1</span></td>
+          <td><span class="b b-na">✗ sem PAC L1</span></td>
+          <td class="v-sdx"><strong>R$14,98</strong></td>
+          <td class="v-pac">R$19,38 (E1)</td>
+          <td><span style="color:#4ade80;font-weight:700">SEDEX R$4,40 mais barato</span></td>
+          <td><span class="b b-sdx">SEDEX como frete grátis</span></td>
+        </tr>
+        <tr class="hl">
+          <td class="city">Campinas</td><td><span class="b b-l1">L1</span></td>
+          <td><span class="b b-na">✗ sem PAC L1</span></td>
+          <td class="v-sdx"><strong>R$14,98</strong></td>
+          <td class="v-pac">R$19,38 (E1)</td>
+          <td><span style="color:#4ade80;font-weight:700">SEDEX R$4,40 mais barato</span></td>
+          <td><span class="b b-sdx">SEDEX como frete grátis</span></td>
+        </tr>
+        <tr class="hl">
+          <td class="city">Guarulhos · Santo André · Osasco · Barueri</td><td><span class="b b-l1">L1</span></td>
+          <td><span class="b b-na">✗ sem PAC L1</span></td>
+          <td class="v-sdx"><strong>R$14,98</strong></td>
+          <td class="v-pac">R$19,38 (E1)</td>
+          <td><span style="color:#4ade80;font-weight:700">SEDEX R$4,40 mais barato</span></td>
+          <td><span class="b b-sdx">SEDEX como frete grátis</span></td>
+        </tr>
+        <tr class="hl">
+          <td class="city">São José dos Campos · Sorocaba · Santos</td><td><span class="b b-l1">L1</span></td>
+          <td><span class="b b-na">✗ sem PAC L1</span></td>
+          <td class="v-sdx"><strong>R$14,98</strong></td>
+          <td class="v-pac">R$19,38 (E1)</td>
+          <td><span style="color:#4ade80;font-weight:700">SEDEX R$4,40 mais barato</span></td>
+          <td><span class="b b-sdx">SEDEX como frete grátis</span></td>
+        </tr>
+        <tr class="hl">
+          <td class="city">Jundiaí · Piracicaba · Limeira · Indaiatuba</td><td><span class="b b-l1">L1</span></td>
+          <td><span class="b b-na">✗ sem PAC L1</span></td>
+          <td class="v-sdx"><strong>R$14,98</strong></td>
+          <td class="v-pac">R$19,38 (E1)</td>
+          <td><span style="color:#4ade80;font-weight:700">SEDEX R$4,40 mais barato</span></td>
+          <td><span class="b b-sdx">SEDEX como frete grátis</span></td>
+        </tr>
+        <tr class="hl-warn">
+          <td class="city">Ribeirão Preto</td><td><span class="b b-l3">L3</span></td>
+          <td><span class="b b-na">✗ sem PAC L3</span></td>
+          <td class="v-sdx"><strong>R$15,64</strong></td>
+          <td class="v-pac">R$19,38 (E1)</td>
+          <td><span style="color:#4ade80;font-weight:700">SEDEX R$3,74 mais barato</span></td>
+          <td><span class="b b-sdx">SEDEX como frete grátis</span></td>
+        </tr>
+        <tr class="hl-warn">
+          <td class="city">Sertãozinho · Jaboticabal · Orlândia · Batatais</td><td><span class="b b-l3">L3</span></td>
+          <td><span class="b b-na">✗ sem PAC L3</span></td>
+          <td class="v-sdx"><strong>R$15,64</strong></td>
+          <td class="v-pac">R$19,38 (E1)</td>
+          <td><span style="color:#4ade80;font-weight:700">SEDEX R$3,74 mais barato</span></td>
+          <td><span class="b b-sdx">SEDEX como frete grátis</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note pac">
+    <strong>💡 Insight de negócio crítico:</strong> Para todas as 116 cidades L1+L3 — que representam <strong>os maiores volumes de pedidos do e-commerce SP</strong> — oferecer o <strong>SEDEX como frete grátis é mais barato que o PAC E1</strong>. O SEDEX L1 custa R$14,98 vs PAC E1 R$19,38. Além disso, o SEDEX entrega em 1 dia útil vs 2–3 dias PAC. <strong>Recomendação: para cidades L1+L3, mudar a promoção de "PAC grátis" para "SEDEX grátis" — reduz custo e melhora a experiência do cliente.</strong>
+  </div>
+</div>
+
+
+<!-- ═══ SEÇÃO 2 · BH E RJ ═══ -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>PAC e SEDEX — Belo Horizonte (MG) e Rio de Janeiro (RJ)</h2>
+  </div>
+  <div class="divider"></div>
+
+  <p>Valores exatos do contrato PAC e SEDEX Platinum, Franca-SP, para BH e RJ. Ambos classificados como <strong>Nível N1</strong>.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Destino</th><th>UF</th><th>Nível</th><th>Modal</th>
+          <th>0–300g</th><th>301–500g</th><th>501–1.000g</th><th>1.001–2.000g ★</th>
+          <th>Prazo Franca</th><th>Prazo GYN Balcão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hl">
+          <td class="city">Belo Horizonte</td><td>MG</td><td><span class="b b-n1">N1</span></td>
+          <td><span class="b b-pac">PAC</span></td>
+          <td class="v-pac">R$18,40</td><td class="v-pac">R$20,44</td><td class="v-pac">R$21,90</td>
+          <td class="v-pac"><strong>R$24,07</strong></td>
+          <td class="day-mid">2–3 dias</td><td class="day-mid">2–3 dias</td>
+        </tr>
+        <tr class="hl">
+          <td class="city">Belo Horizonte</td><td>MG</td><td><span class="b b-n1">N1</span></td>
+          <td><span class="b b-sdx">SEDEX</span></td>
+          <td class="v-sdx">R$28,85</td><td class="v-sdx">R$30,06</td><td class="v-sdx">R$31,27</td>
+          <td class="v-sdx"><strong>R$37,69</strong></td>
+          <td class="day-fast">1–2 dias</td><td class="day-fast">1–2 dias</td>
+        </tr>
+        <tr>
+          <td class="city">Contagem / Betim (RMBH)</td><td>MG</td><td><span class="b b-n1">N1</span></td>
+          <td><span class="b b-pac">PAC</span></td>
+          <td class="v-pac">R$18,40</td><td class="v-pac">R$20,44</td><td class="v-pac">R$21,90</td>
+          <td class="v-pac"><strong>R$24,07</strong></td>
+          <td class="day-mid">2–3 dias</td><td class="day-mid">2–3 dias</td>
+        </tr>
+        <tr style="border-top:2px solid var(--border2)">
+          <td class="city">Rio de Janeiro</td><td>RJ</td><td><span class="b b-n1">N1</span></td>
+          <td><span class="b b-pac">PAC</span></td>
+          <td class="v-pac">R$18,40</td><td class="v-pac">R$20,44</td><td class="v-pac">R$21,90</td>
+          <td class="v-pac"><strong>R$24,07</strong></td>
+          <td class="day-mid">3–4 dias</td><td class="day-slow">4–6 dias</td>
+        </tr>
+        <tr>
+          <td class="city">Rio de Janeiro</td><td>RJ</td><td><span class="b b-n1">N1</span></td>
+          <td><span class="b b-sdx">SEDEX</span></td>
+          <td class="v-sdx">R$28,85</td><td class="v-sdx">R$30,06</td><td class="v-sdx">R$31,27</td>
+          <td class="v-sdx"><strong>R$37,69</strong></td>
+          <td class="day-mid">2–3 dias</td><td class="day-mid">2–3 dias</td>
+        </tr>
+        <tr>
+          <td class="city">Niterói</td><td>RJ</td><td><span class="b b-n1">N1</span></td>
+          <td><span class="b b-pac">PAC</span></td>
+          <td class="v-pac">R$18,40</td><td class="v-pac">R$20,44</td><td class="v-pac">R$21,90</td>
+          <td class="v-pac"><strong>R$24,07</strong></td>
+          <td class="day-mid">3–4 dias</td><td class="day-slow">4–6 dias</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note sdx">
+    <strong>BH e RJ — PAC vs GYN:</strong> Goiânia fica ~200 km de BH — o PAC GYN balcão para BH é estimado em R$18,40–R$22,00 (semelhante ao Franca). Para RJ, Franca tem leve vantagem em prazo. Em ambos os casos, o PAC N1 de Franca (R$24,07 na faixa 1–2 kg) é <strong>significativamente mais barato que o SEDEX N1 (R$37,69)</strong> — economia de R$13,62 por pedido (36,1%). Para clientes de BH e RJ em compras acima de R$500, o PAC é claramente o modal correto.
+  </div>
+</div>
+
+
+<!-- ═══ SEÇÃO 3 · RESUMO MODAL ═══ -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>Estratégia por Destino — Qual Modal Usar em Cada Caso?</h2>
+  </div>
+  <div class="divider"></div>
+
+  <p>Com base nos dados reais contratuais, a tabela abaixo define o <strong>modal ideal para frete grátis</strong> em cada tipo de destino, considerando menor custo e melhor prazo para a empresa.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Segmento de Destino</th><th>Nível</th><th>Cidades SP</th>
+          <th>Modal Ideal Frete Grátis</th><th>Custo 1–2kg</th>
+          <th>Custo se usar PAC E1</th><th>Economia usando SEDEX</th>
+          <th>Prazo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hl">
+          <td class="city">SP Capital, Campinas, Grande SP, SJC, Santos, Sorocaba, Jundiaí…</td>
+          <td><span class="b b-l1">L1</span></td><td>79</td>
+          <td><span class="b b-sdx">✅ SEDEX</span></td>
+          <td class="v-sdx"><strong>R$14,98</strong></td>
+          <td class="v-pac">R$19,38</td>
+          <td><span class="v-econ">−R$4,40 (22,7%)</span></td>
+          <td class="day-fast">1 dia útil</td>
+        </tr>
+        <tr class="hl-warn">
+          <td class="city">Ribeirão Preto, Sertãozinho, Jaboticabal, Orlândia, Batatais, Guariba…</td>
+          <td><span class="b b-l3">L3</span></td><td>37</td>
+          <td><span class="b b-sdx">✅ SEDEX</span></td>
+          <td class="v-sdx"><strong>R$15,64</strong></td>
+          <td class="v-pac">R$19,38</td>
+          <td><span class="v-econ">−R$3,74 (19,3%)</span></td>
+          <td class="day-fast">1 dia útil</td>
+        </tr>
+        <tr class="hl-red">
+          <td class="city">Bauru, São Carlos, Barretos, Catanduva, São J. Rio Preto, P. Prudente, Botucatu…</td>
+          <td><span class="b b-e1">E1</span></td><td>530</td>
+          <td><span class="b b-pac">✅ PAC</span></td>
+          <td class="v-pac"><strong>R$19,38</strong></td>
+          <td class="v-pac">R$19,38</td>
+          <td><span class="v-mut">Mesmo modal</span></td>
+          <td class="day-mid">3–5 dias</td>
+        </tr>
+        <tr>
+          <td class="city">Belo Horizonte / RMBH</td>
+          <td><span class="b b-n1">N1</span></td><td>MG</td>
+          <td><span class="b b-pac">✅ PAC</span></td>
+          <td class="v-pac"><strong>R$24,07</strong></td>
+          <td class="v-pac">R$24,07</td>
+          <td><span class="v-mut">vs SEDEX R$37,69</span></td>
+          <td class="day-mid">2–3 dias</td>
+        </tr>
+        <tr>
+          <td class="city">Rio de Janeiro / Niterói</td>
+          <td><span class="b b-n1">N1</span></td><td>RJ</td>
+          <td><span class="b b-pac">✅ PAC</span></td>
+          <td class="v-pac"><strong>R$24,07</strong></td>
+          <td class="v-pac">R$24,07</td>
+          <td><span class="v-mut">vs SEDEX R$37,69</span></td>
+          <td class="day-mid">3–4 dias</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note pac">
+    <strong>Resumo da estratégia ideal:</strong> Usar <strong>SEDEX</strong> como frete grátis para destinos L1 e L3 (SP Capital, Campinas, Ribeirão e região) — é mais barato E mais rápido que PAC E1. Usar <strong>PAC</strong> para destinos E1 (interior SP) e N1 (BH, RJ). Esta segmentação automática no checkout, por CEP, maximiza a eficiência e a satisfação do cliente simultaneamente.
+  </div>
+</div>
+
+
+<!-- ═══ SEÇÃO 4 · CD FRANCA ═══ -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>Viabilidade do CD em Franca-SP — Custos Reais e Break-Even PAC</h2>
+  </div>
+  <div class="divider"></div>
+
+  <h3>Custos fixos mensais reais</h3>
+  <div class="cd-box">
+    <div class="cd-row"><div class="item"><span class="icon">🏭</span>Aluguel + IPTU</div><div class="amount">R$4.500</div></div>
+    <div class="cd-row"><div class="item"><span class="icon">👷</span>2 Colaboradores (R$1.621 × 2)</div><div class="amount">R$3.242</div></div>
+    <div class="cd-row"><div class="item"><span class="icon">⚡</span>Água + Luz</div><div class="amount">R$650</div></div>
+    <div class="cd-row"><div class="item"><span class="icon">🌐</span>Internet</div><div class="amount">R$200</div></div>
+    <div class="cd-row"><div class="item"><span class="icon">📦</span>Materiais / Embalagem</div><div class="amount">R$300</div></div>
+    <div class="cd-row"><div class="item"><span class="icon">🖥</span>Sistema / Software</div><div class="amount">R$300</div></div>
+  </div>
+  <div class="cd-total">
+    <div>
+      <div class="tl">💰 Total mensal (bruto)</div>
+      <div class="tv">R$9.192</div>
+    </div>
+    <div class="ts">
+      <strong style="color:#86efac">Com encargos trabalhistas (~30%): ~R$10.165/mês</strong><br><br>
+      Economia PAC E1 por pedido (Franca vs GYN balcão, faixa 1–2kg): <strong style="color:#86efac">R$1,52</strong><br>
+      Economia SEDEX L1 por pedido (vs GYN balcão, faixa 1–2kg): <strong style="color:#86efac">R$24,42</strong><br>
+      Economia PAC N1 (BH/RJ Franca vs GYN balcão): <strong style="color:#86efac">~R$3,00–R$5,00</strong><br><br>
+      <strong style="color:#fcd34d">⚠ Break-even só com PAC E1 (R$1,52/pedido): ~6.688 pedidos/mês — inviável isoladamente.</strong><br>
+      <strong style="color:#86efac">✅ Break-even com mix SEDEX L1+L3 (R$20–R$24/pedido): ~420–508 pedidos/mês.</strong>
+    </div>
+  </div>
+
+  <div class="note alert">
+    <strong>Ponto crítico da análise PAC E1:</strong> A economia do PAC E1 de Franca frente ao balcão de Goiânia na faixa 1–2 kg é de apenas <strong>R$1,52 por pedido</strong>. Isso torna o CD inviável se baseado exclusivamente no modal PAC para interior SP. <strong>O maior ganho financeiro do CD em Franca vem dos destinos L1 e L3 via SEDEX</strong> — onde a economia chega a R$24,42/pedido. O CD se justifica pelo conjunto da operação, não apenas pelo PAC.
+  </div>
+
+  <h3>Projeção financeira — mix real de operação (PAC E1 + SEDEX L1/L3)</h3>
+  <div class="vol-grid">
+    <div class="vc low">
+      <div class="vh">🔵 Volume Baixo · 50–300 envios/mês</div>
+      <div class="vr"><strong>Econ. PAC E1 (R$1,52/ped.)</strong><span class="pos">R$76–R$456</span></div>
+      <div class="vr"><strong>Econ. SEDEX L1 (R$24,42/ped.)</strong><span class="pos">R$1.221–R$7.326</span></div>
+      <div class="vr"><strong>Custo CD real (c/ encargos)</strong><span class="neg">R$10.165</span></div>
+      <div class="vr"><strong>Resultado líquido (mix)</strong><span class="neg">−R$2.383 a −R$8.868</span></div>
+      <div class="verdict no">❌ Inviável. Volume insuficiente para cobrir os fixos. Usar 3PL com contrato Franca ativo — os preços já serão melhores que Goiânia mesmo sem CD próprio.</div>
+    </div>
+    <div class="vc mid">
+      <div class="vh">🟡 Volume Médio · 301–800 envios/mês</div>
+      <div class="vr"><strong>Econ. SEDEX L1 (domina o mix)</strong><span class="pos">R$7.350–R$19.536</span></div>
+      <div class="vr"><strong>Custo CD real</strong><span class="neg">R$10.165</span></div>
+      <div class="vr"><strong>Break-even (SEDEX L1 puro)</strong><span>~416 pedidos/mês</span></div>
+      <div class="vr"><strong>Break-even (mix 50% L1+50% E1)</strong><span>~784 pedidos/mês</span></div>
+      <div class="verdict maybe">⚠️ Depende do mix. Se maioria dos pedidos for L1/L3 (grandes centros SP), break-even já em ~416 pedidos. Se maioria for E1 (interior), break-even sobe para ~6.688 pedidos.</div>
+    </div>
+    <div class="vc hi">
+      <div class="vh">🟢 Volume Alto · acima de 800 envios/mês</div>
+      <div class="vr"><strong>Econ. mix (800 ped. · 70% L1)</strong><span class="pos">~R$13.675</span></div>
+      <div class="vr"><strong>Resultado líquido</strong><span class="pos">+R$3.510/mês</span></div>
+      <div class="vr"><strong>Resultado (2.000 ped. · 70% L1)</strong><span class="pos">+R$24.015/mês</span></div>
+      <div class="vr"><strong>Resultado (5.000 ped. · 70% L1)</strong><span class="pos">+R$74.870/mês</span></div>
+      <div class="verdict yes">✅ Altamente viável. Acima de 800 pedidos/mês com mix predominante de destinos L1/L3, o CD já gera retorno positivo crescente. Em 2.000 pedidos, +R$24.000/mês líquido.</div>
+    </div>
+  </div>
+
+  <h3>Tabela de break-even — mix real (70% L1/L3 + 30% E1)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Volume/mês</th>
+          <th>Modal mix</th>
+          <th>Frete GYN Balcão</th>
+          <th>Frete Franca Contrato</th>
+          <th>Economia Frete</th>
+          <th>Custo CD Real</th>
+          <th>Resultado Líquido</th>
+          <th>Viabilidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>100 ped.</td><td class="v-mut">70% SEDEX L1 + 30% PAC E1</td><td class="v-gyn">R$3.227</td><td class="v-pac">R$1.630</td><td class="v-econ">R$1.597</td><td class="v-gyn">R$10.165</td><td style="color:var(--red)"><strong>−R$8.568</strong></td><td class="v-mut">Inviável</td></tr>
+        <tr><td>300 ped.</td><td class="v-mut">70% SEDEX L1 + 30% PAC E1</td><td class="v-gyn">R$9.681</td><td class="v-pac">R$4.889</td><td class="v-econ">R$4.792</td><td class="v-gyn">R$10.165</td><td style="color:var(--red)"><strong>−R$5.373</strong></td><td class="v-mut">Inviável</td></tr>
+        <tr style="background:rgba(245,158,11,.05)">
+          <td><strong>~416 ped.</strong></td><td class="v-mut">100% SEDEX L1</td>
+          <td class="v-gyn">R$16.399</td><td class="v-pac">R$6.232</td>
+          <td class="v-econ">R$10.167</td><td class="v-gyn">R$10.165</td>
+          <td style="color:var(--warn)"><strong>≈ R$0</strong></td><td style="color:var(--warn)">Break-even L1</td>
+        </tr>
+        <tr style="background:rgba(245,158,11,.05)">
+          <td><strong>~784 ped.</strong></td><td class="v-mut">50% L1 + 50% E1</td>
+          <td class="v-gyn">R$20.398</td><td class="v-pac">R$10.178</td>
+          <td class="v-econ">R$10.220</td><td class="v-gyn">R$10.165</td>
+          <td style="color:var(--warn)"><strong>≈ R$0</strong></td><td style="color:var(--warn)">Break-even mix 50/50</td>
+        </tr>
+        <tr class="hl">
+          <td><strong>800 ped.</strong></td><td class="v-mut">70% L1 + 30% E1</td>
+          <td class="v-gyn">R$25.820</td><td class="v-pac">R$13.042</td>
+          <td class="v-econ">R$12.778</td><td class="v-gyn">R$10.165</td>
+          <td class="v-econ"><strong>+R$2.613</strong></td><td class="day-fast">✓ Viável</td>
+        </tr>
+        <tr class="hl">
+          <td><strong>1.000 ped.</strong></td><td class="v-mut">70% L1 + 30% E1</td>
+          <td class="v-gyn">R$32.270</td><td class="v-pac">R$16.302</td>
+          <td class="v-econ">R$15.968</td><td class="v-gyn">R$10.165</td>
+          <td class="v-econ"><strong>+R$5.803</strong></td><td class="day-fast">✓ Viável</td>
+        </tr>
+        <tr class="hl">
+          <td><strong>2.000 ped.</strong></td><td class="v-mut">70% L1 + 30% E1</td>
+          <td class="v-gyn">R$64.540</td><td class="v-pac">R$32.604</td>
+          <td class="v-econ">R$31.936</td><td class="v-gyn">R$10.665</td>
+          <td class="v-econ"><strong>+R$21.271</strong></td><td class="day-fast">✓ Muito viável</td>
+        </tr>
+        <tr class="hl">
+          <td><strong>5.000 ped.</strong></td><td class="v-mut">70% L1 + 30% E1</td>
+          <td class="v-gyn">R$161.350</td><td class="v-pac">R$81.510</td>
+          <td class="v-econ">R$79.840</td><td class="v-gyn">R$13.165</td>
+          <td class="v-econ"><strong>+R$66.675</strong></td><td class="day-fast">✓ Excelente ROI</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:11.5px;color:var(--muted)">Mix 70% L1: 70% SEDEX L1 (R$14,98 Franca / R$39,40 GYN balcão) + 30% PAC E1 (R$19,38 Franca / R$20,90 GYN balcão). Frete médio ponderado Franca: R$16,30/pedido. Frete médio GYN: R$32,27/pedido. Economia média: R$15,97/pedido.</p>
+</div>
+
+
+<!-- ═══ SEÇÃO 5 · SÍNTESE ═══ -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>Síntese Executiva e Recomendações</h2>
+  </div>
+  <div class="divider"></div>
+
+  <div class="sum-grid">
+    <div class="sum-box pac-b">
+      <div class="sh">📍 Franca-SP — Referência Contratual Real</div>
+      <div class="sum-row"><span class="sl">PAC E1 (530 cidades SP) 1–2kg</span><span class="sv2">R$19,38</span></div>
+      <div class="sum-row"><span class="sl">SEDEX L1 (79 cidades SP) 1–2kg</span><span class="sv2">R$14,98</span></div>
+      <div class="sum-row"><span class="sl">SEDEX L3 (37 cidades SP) 1–2kg</span><span class="sv2">R$15,64</span></div>
+      <div class="sum-row"><span class="sl">PAC N1 (BH + RJ) 1–2kg</span><span class="sv2">R$24,07</span></div>
+      <div class="sum-row"><span class="sl">Prazo SEDEX L1 (SP Capital)</span><span class="sv2">1 dia útil</span></div>
+      <div class="sum-row"><span class="sl">Prazo PAC E1 (interior SP)</span><span class="sv2">3–5 dias úteis</span></div>
+      <div class="sum-row"><span class="sl">Prazo PAC N1 (BH)</span><span class="sv2">2–3 dias úteis</span></div>
+      <div class="sum-row"><span class="sl">Break-even CD (70% mix L1)</span><span class="sv2">~416–784 ped/mês</span></div>
+    </div>
+    <div class="sum-box gyn-b">
+      <div class="sh">📍 Goiânia-GO — Balcão Estimado 2026</div>
+      <div class="sum-row"><span class="sl">PAC SP interior (1–2kg)</span><span class="sv2">R$20,90</span></div>
+      <div class="sum-row"><span class="sl">PAC SP Capital (1–2kg)</span><span class="sv2">R$22,80</span></div>
+      <div class="sum-row"><span class="sl">SEDEX SP Capital (1–2kg)</span><span class="sv2">R$39,40</span></div>
+      <div class="sum-row"><span class="sl">PAC BH / RJ (1–2kg)</span><span class="sv2">~R$22,00</span></div>
+      <div class="sum-row"><span class="sl">Prazo SEDEX SP Capital</span><span class="sv2">2–3 dias úteis</span></div>
+      <div class="sum-row"><span class="sl">Prazo PAC SP Capital</span><span class="sv2">5–7 dias úteis</span></div>
+      <div class="sum-row"><span class="sl">Prazo PAC interior SP</span><span class="sv2">5–8 dias úteis</span></div>
+      <div class="sum-row"><span class="sl">Custo anual (1.000 ped/mês)</span><span class="sv2">R$387.240</span></div>
+    </div>
+  </div>
+
+  <h3>Recomendações prioritárias</h3>
+  <ul>
+    <li><strong>Segmentar o checkout por CEP imediatamente:</strong> Para CEPs L1 e L3 (SP Capital, Campinas, Ribeirão Preto e região), substituir a oferta de "PAC grátis" por <strong>"SEDEX grátis"</strong> — é R$3,74–R$4,40 mais barato por pedido e entrega 1–2 dias mais rápido.</li>
+    <li><strong>Manter PAC para CEPs E1 (interior SP):</strong> Para as 530 cidades do interior, o PAC (R$19,38) é R$4,84 mais barato que o SEDEX (R$24,22). Frete grátis via PAC faz sentido aqui.</li>
+    <li><strong>PAC para BH e RJ:</strong> PAC N1 (R$24,07) é R$13,62 mais barato que SEDEX N1 (R$37,69). Usar PAC para frete grátis nessas capitais.</li>
+    <li><strong>Abaixo de 416 pedidos L1/mês:</strong> Não abrir CD próprio. Usar 3PL terceirizado em Franca com contrato de frete já ativo.</li>
+    <li><strong>Entre 416 e 800 pedidos/mês (foco L1):</strong> Avaliar 3PL dedicado. A partir de ~416 pedidos exclusivamente L1, o CD se paga.</li>
+    <li><strong>Acima de 800 pedidos/mês (mix 70% L1):</strong> CD próprio em Franca é altamente recomendado — resultado líquido positivo crescente.</li>
+    <li><strong>Redução de embalagem:</strong> A caixa 30×20×12 cm gera peso cúbico de 1.200 g. Reduzir para 25×18×10 cm = 750 g cúbico (faixa 501–1.000 g) economizaria R$0,99/pedido no PAC E1 e R$2,43/pedido no SEDEX L1.</li>
+    <li><strong>Solicitar atualização do contrato PAC:</strong> Negociar com os Correios a inclusão de níveis L1 e L3 no contrato PAC Franca-SP — atualmente inexistentes. Se obtiver PAC L1 ao mesmo preço do SEDEX L1 (~R$12–13), a economia seria ainda maior.</li>
+  </ul>
+</div>
+
+
+<div class="footer">
+  <span>Análise PAC Platinum · Dados reais: ORIGEM_FRANCA-SP_-_PLATINUM_-_PAC.csv + ORIGEM_FRANCA-SP_-_PLATINUM_-_SEDEX.csv · Custos CD reais: Aluguel R$4.500 + Colaboradores R$3.242 + Água/Luz R$650 + Internet R$200 + Materiais/Software R$600 = R$9.192/mês bruto · ~R$10.165/mês com encargos</span>
+  <span>Preços balcão GYN estimados Correios 2026. Valores sujeitos a confirmação.</span>
+</div>
+
+</div>
+</body>
+</html>
