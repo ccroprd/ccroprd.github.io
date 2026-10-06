@@ -26,35 +26,39 @@ body {
   left: 0;
   width: 100%;
   z-index: 10;
-  height: 5rem;
+  height: auto;
+  background: none;          /* sem barra */
+  pointer-events: none;      /* o clique passa para a imagem... */
 }
 
 .menu {
-  max-width: 72rem;
   width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 2rem;
+  margin: 0;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   color: #fff;
 }
 
+.menu .logo,
+.menu .actions {
+  pointer-events: auto;      /* ...mas o logo e o botão continuam clicáveis */
+}
 
 .logo {
   font-size: 1.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
-  line-height: 4rem;
-  margin-top: 20px;
+  line-height: 1;
+  margin: 0.4rem 0 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);  /* legibilidade sobre a foto */
 }
 
-.logo span {
-  font-size: 1.8rem;
-  margin-left: 5px;
-  color: #0c5392;
+/* o hambúrguer não aparece mais */
+.hamburger-menu {
+  display: none;
 }
 
 
