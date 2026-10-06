@@ -77,9 +77,21 @@ body {
 header {
   min-height: 100vh;
   width: 100%;
-  background: url("escada.jpg") no-repeat top
-    center / cover;
+  background-color: #131414;
   position: relative;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bg) no-repeat top center / cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+header.bg-ready::before {
+  opacity: 1;
 }
 
 .overlay {
@@ -311,12 +323,107 @@ ul li.active a {
     translateZ(340px) scale(0.5);
 }
 
+/* Botão de contato */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
+.contact {
+  position: relative;
+}
 
+.contact-btn {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.2s, background 0.2s;
+}
 
+.contact-btn:hover,
+.contact-btn[aria-expanded="true"] {
+  opacity: 1;
+  transform: scale(1.08);
+  background: rgba(12, 83, 146, 0.6); /* azul da sua marca */
+}
 
+.contact-box {
+  position: absolute;
+  top: 52px;
+  right: 0;
+  width: 280px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(20, 20, 20, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  animation: pop 0.2s ease;
+}
 
+.contact-box[hidden] { display: none; }
+.contact-box p { margin: 0 0 10px; font-weight: 600; }
 
+.contact-box input,
+.contact-box textarea {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font: inherit;
+  resize: none;
+}
 
+.contact-box input:focus,
+.contact-box textarea:focus {
+  outline: 2px solid #0c5392;
+  outline-offset: 1px;
+}
 
+.contact-box button {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background: #0c5392;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, filter 0.15s;
+}
 
+.contact-box button:hover { transform: translateY(-1px); filter: brightness(1.15); }
+.contact-box small { display: block; margin-top: 10px; opacity: 0.7; font-size: 12px; text-align: center; }
+.contact-box small a { color: #fff; }
+
+@keyframes pop {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Celular: caixa ocupa a largura da tela */
+@media (max-width: 480px) {
+  .contact { position: static; }
+  .contact-box {
+    position: fixed;
+    top: 4.5rem;
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+}
