@@ -56,6 +56,12 @@ body {
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);  /* legibilidade sobre a foto */
 }
 
+.logo span {
+  font-size: 1.8rem;
+  margin-left: 5px;
+  color: #0c5392;
+}
+
 /* o hambúrguer não aparece mais */
 .hamburger-menu {
   display: none;
