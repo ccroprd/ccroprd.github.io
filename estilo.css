@@ -106,31 +106,17 @@ header.bg-ready::before {
 
 .overlay {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.712);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
+  padding: 0 1.5rem;
   color: #ffcd00;
 }
 
-.overley {
-  position: absolute;
-  font-style: italic;
-  width: 100%;
-  height: 100%;
-  top: 55px;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: #fff;
-}
 
 .inner {
   max-width: 35rem;
@@ -140,26 +126,19 @@ header.bg-ready::before {
 }
 
 .title {
-  font-size: 3rem;
+  font-size: clamp(1.6rem, 7vw, 3rem);   /* mínimo, ideal, máximo */
+  line-height: 1.15;
+  text-wrap: balance;                    /* se quebrar linha, quebra equilibrado */
 }
 
 .titley {
-  font-size: 1rem;
+  margin-top: 0.9rem;
+  font-size: clamp(0.85rem, 2.8vw, 1rem);
+  font-style: italic;
+  color: #fff;
+  text-wrap: balance;
 }
 
-.description {
-  margin: 10px 0;
-  text-align: center;
-  width: 50%;
-  font-size: 1.5rem;
-}
-
-.descriptiony {
-  margin: 10px 0;
-  text-align: center;
-  width: 20%;
-  font-size: 1rem;
-}
 
 .container.active .bar {
   transform: rotate(360deg);
